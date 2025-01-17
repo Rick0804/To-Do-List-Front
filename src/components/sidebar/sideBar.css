@@ -1,0 +1,13 @@
+nav {
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+    background-color: #272435;
+    width: 292px;
+    gap: 26px;
+}
+
+a {
+    color: white;
+    width: fit-content;
+}
