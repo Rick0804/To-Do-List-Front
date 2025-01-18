@@ -10,7 +10,7 @@ const Header = () => {
       break;
       case '/metas': return "Página de Metas";
       break;
-      case '/notas': return "Página de Notas";
+      case '/notes': return "Página de Notas";
       break;
     }
   }

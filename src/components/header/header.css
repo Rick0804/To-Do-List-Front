@@ -2,6 +2,7 @@ header {
     display: flex;
     align-items: center;
     height: 102px;
+    position: relative;
 }
 
 .title { 

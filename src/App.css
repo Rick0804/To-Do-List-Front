@@ -7,3 +7,12 @@
   font-family: "Montserrat", serif;
   text-decoration: none;
 }
+
+.main-content {
+  display: flex;
+}
+
+body {
+  background-color: #413C58;
+  color: white;
+}
