@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../pages/home/Home";
 import Metas from "../pages/goals/Goals";
 import Notes from "../pages/notes/Notes";
-import Forms from "../pages/Forms";
+import Forms from "../components/form/Forms";
 function AppRouter(){
     return (
         <Routes> 
