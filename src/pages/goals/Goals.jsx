@@ -4,7 +4,7 @@ function Goals (){
         <>
         <div className="content">
             <h3>teste supimpa</h3>
-
+            
         </div>
         </>
     )

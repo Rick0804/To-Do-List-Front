@@ -1,8 +1,8 @@
 import './form.css'
 
 import { useState } from "react"
-import { postTask } from "../../services/getServices";
-import { redirect, useLocation } from "react-router-dom";
+import { postTask } from "../../services/taskService";
+import { useLocation } from "react-router-dom";
 export default function Forms(props) {
 
   const location = useLocation();
@@ -20,6 +20,7 @@ export default function Forms(props) {
       ...prevInfo,
       [name]: value
     }))
+    console.log(location.pathname)
   }
 
 
@@ -43,9 +44,15 @@ export default function Forms(props) {
     }
   }
 
-  const handlerSubmit = async () => {
-    await typeHand().then((response) => { postTask(response) }).catch((err) => err)
-    redirect("/")
+  /*
+   
+    ARRUMAR O REDIRECT AO USAR O FORMULÁRIO
+
+  */
+  const handlerSubmit = async (e) => {
+    e.preventDefault();
+    await typeHand().then((response) => { postTask(response) }).catch((err) => err);
+    props.setMostrar(!props.mostrar);
   }
 
 

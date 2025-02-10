@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Forms from "../../components/form/Forms";
+import List from "../../components/ToDoList/ToDoList";
 
 
 function Home(){
@@ -15,6 +16,10 @@ function Home(){
                     </div>
                     <button onClick={() => setMostrar(!mostrar)}>adicionar tarefa</button>
                     {mostrar && <Forms mostrar={mostrar} setMostrar={setMostrar}></Forms>}
+                <div className="listTask">
+                    <List></List>
+                </div>
+
                 </div>
             </section>
         </> 

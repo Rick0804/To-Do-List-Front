@@ -6,16 +6,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: flex;               /* Usa o Flexbox para centralização */
-    justify-content: center;     /* Centraliza o formulário horizontalmente */
+    display: flex;               
+    justify-content: center;    
     align-items: center; 
 }
 
 form {
-    max-width: 500px;   /* Defina uma largura fixa para o formulário */
-    padding: 30px;   /* Adiciona padding interno */
-    background-color: #fff; /* Cor de fundo do formulário */
-    border-radius: 10px;  /* Bordas arredondadas */
+    max-width: 500px;  
+    padding: 30px;  
+    background-color: #fff;
+    border-radius: 10px;  
     box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
@@ -26,21 +26,20 @@ input {
     padding: 15px;
     font-size: 16px;
     border: 2px solid #ddd;
-    border-radius: 5px;  /* Bordas arredondadas nos campos */
+    border-radius: 5px;  
     outline: none;
-    transition: all 0.3s ease; /* Suaviza a transição de efeitos */
+    transition: all 0.3s ease; 
 }
 
-/* Efeito ao focar nos campos de entrada */
 input:focus {
-    border-color: #007BFF;  /* Cor da borda quando o campo é focado */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);  /* Efeito de brilho */
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); 
 }
 
-/* Estilo do botão */
+
 button {
     padding: 15px;
-    background-color: #007BFF;  /* Cor de fundo */
+    background-color: #007BFF;  
     color: white;
     border: none;
     border-radius: 5px;
@@ -54,7 +53,7 @@ button:hover {
 }
 
 label {
-    text-align: center;  /* Centraliza o título */
+    text-align: center;  
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
