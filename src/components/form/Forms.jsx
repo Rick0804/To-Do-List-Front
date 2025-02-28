@@ -1,8 +1,8 @@
 import './form.css'
 
-import { useState } from "react"
-import { postTask } from "../../services/taskService";
+import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
+import { connect, addTodo } from '../../services/taskService'
 export default function Forms(props) {
 
   const location = useLocation();
@@ -11,7 +11,6 @@ export default function Forms(props) {
     description: '',
     enum: 'CONCLUIDO'
   })
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -49,9 +48,10 @@ export default function Forms(props) {
     ARRUMAR O REDIRECT AO USAR O FORMULÁRIO
 
   */
+ 
   const handlerSubmit = async (e) => {
     e.preventDefault();
-    await typeHand().then((response) => { postTask(response) }).catch((err) => err);
+    typeHand().then((response) => {addTodo(response)})
     props.setMostrar(!props.mostrar);
   }
 

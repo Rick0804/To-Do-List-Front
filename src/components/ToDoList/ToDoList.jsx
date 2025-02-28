@@ -1,35 +1,32 @@
 import { useEffect, useState } from "react"
-import { getTask } from "../../services/taskService"
+import { connect, getTodo } from "../../services/taskService";
 
 function List (){
     const [tarefa, setTarefa] = useState([]);
     
     
     useEffect(() => {
-        
-        const tarefas = async() => {
-            try {
-                await getTask().then((response) => {setTarefa(response.data)})
-            } catch(err) {
-                console.error("ERRO: ", err)
-            }
-        }
-
-        tarefas()
-        const taskReload = setInterval(tarefas, 5000);
-        return () => {clearInterval(taskReload)}
+        connect(setTarefa)
     }, [])
+    
+    
+  
     
      return (
          <>
              <div className="list-tasks">
                 <ul>
-                    {tarefa.map((response) => (
-                        <li key={response.id}>{response.taskTitle}</li>
-                        
-                    ))}
+                    
+                    {
+                        tarefa.map((response) => {
+                            return <li key={response.id}>{response.taskTitle}</li>
+                        })
+                    }
                 </ul>
-
+                <button onClick={() => {
+                    getTodo()
+                    console.log(tarefa.length)
+                }}> teste </button>
                  
              </div>
          </>

@@ -1,13 +1,57 @@
-import api from "./api.js";
+import { Client } from "@stomp/stompjs";
 
-export const getTask = async() => {
-    return api.get("/TaskList").then((response) => response).catch((err) => {console.log("erro: " + err)})
+let stompClient = null;
+
+const connect = (setTarefa) => {
+    console.log("conectado")
+    const client = new Client({
+        brokerURL: "ws://localhost:8080/ws",
+        onConnect: () => {
+            client.subscribe('/topic/tasklist', (message) => {
+                setTarefa(JSON.parse(message.body).sort((a, b) => a.id - b.id));
+            })
+            getTodo()
+        },
+         onStompError: (error) => {
+            console.log("erro: " + error);
+         }
+    })
+    stompClient = client;
+    stompClient.activate();
+
 }
 
-export const getTaskById = async(id) => {
-    return api.get(`/TaskList/${id}`)
+const addTodo = (task) => {
+    if(stompClient && stompClient.connected){
+        console.log("teste enviado")
+        console.log("enviando tarefa: " + JSON.stringify(task))
+        stompClient.publish({
+            destination: '/app/addTask',
+            body: JSON.stringify(task)
+        })
+        console.log("📨 Mensagem publicada com sucesso!");
+    }
 }
 
-export const postTask = async(task) => {
-    return api.post("/TaskList", task)
+const getTodo = async () => {
+    if(stompClient && stompClient.connected){
+        console.log("entrou no get tarefa")
+        stompClient.publish({
+            destination: '/app/getTasks',
+            body: ''
+        })
+    }
 }
+
+const editTodo = (task, id) => {
+    if(stompClient && stompClient.connected){
+        stompClient.publish({
+            destination: "/app/editTask",
+            headers: {id},
+            body: JSON.stringify(task)
+        })
+    }
+}
+
+
+export {connect, addTodo, getTodo}
