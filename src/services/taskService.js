@@ -11,7 +11,6 @@ const connect = async (setTarefa, handleMessageReceived) => {
                 if(Array.isArray(JSON.parse(message.body))){
                     setTarefa(JSON.parse(message.body).sort((a, b) => a.id - b.id));
                 } else {
-                    console.log("come to daddy ", JSON.parse(message.body))
                     handleMessageReceived(JSON.parse(message.body))
                 }
             })
@@ -68,7 +67,6 @@ const deleteTodo = (id) => {
 
 const editTodo = (task, id) => {
     if(stompClient && stompClient.connected){
-        console.log("entrou aqui! ")
         stompClient.publish({
             destination: "/app/editTask",
             headers: {id},
@@ -77,5 +75,15 @@ const editTodo = (task, id) => {
     }
 }
 
+const cleanDisconnect = () => {
+    if(stompClient){
+        
+        console.log("desconectando")
+    }
+    stompClient.deactivate(() => {
+        console.log("Desconectado com sucesso do servidor STOMP");
+    });
+}
 
-export {connect, addTodo, getTodo, deleteTodo, editTodo, getTodoById}
+
+export {connect, addTodo, getTodo, deleteTodo, editTodo, getTodoById, cleanDisconnect}

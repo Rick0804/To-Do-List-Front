@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { connect, getTodo, deleteTodo } from "../../services/taskService";
+import { connect, getTodo, deleteTodo, cleanDisconnect } from "../../services/taskService";
 import FormEdit from "../formEdit/FormEdit";
 
 function List (){
@@ -10,6 +10,10 @@ function List (){
     
     useEffect(() => {
         connect(setInfos, () => {})
+
+        return () => {
+            cleanDisconnect()
+        }
     }, [])
     
     
@@ -54,7 +58,7 @@ function List (){
 
                 </ul>
                 <button onClick={() => {
-                    getTodo()
+                    //getTodo()
                     console.log(infos.length)
                 }}> teste </button>
                  

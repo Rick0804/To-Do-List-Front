@@ -2,7 +2,7 @@ import './form.css'
 
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
-import { connect, editTodo, getTodoById } from '../../services/taskService'
+import { connect, editTodo, getTodoById, cleanDisconnect } from '../../services/taskService'
 export default function FormEdit(props) {
 
   const location = useLocation();
@@ -44,7 +44,9 @@ export default function FormEdit(props) {
     };
   
     setupWebSocket(); 
-    
+    return () => {
+      cleanDisconnect();
+    };
     
   }, [])
 
@@ -57,7 +59,6 @@ export default function FormEdit(props) {
       [name]: value
     })
     )
-    console.log(name, ' ', value)
   }
 
   const typeHand = async () => {
