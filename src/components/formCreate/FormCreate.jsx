@@ -1,15 +1,15 @@
 import './form.css'
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useLocation } from "react-router-dom";
-import { connect, addTodo } from '../../services/taskService'
-export default function Forms(props) {
+import { addTodo } from '../../services/taskService'
+export default function FormCreate(props) {
 
   const location = useLocation();
   const [infos, setinfos] = useState({
     title: '',
     description: '',
-    enum: 'CONCLUIDO'
+    enum: 'PENDENTE'
   })
 
   const handleChange = (event) => {
@@ -20,6 +20,7 @@ export default function Forms(props) {
       [name]: value
     }))
     console.log(location.pathname)
+    console.log(name, ' ', value)
   }
 
 
@@ -42,12 +43,6 @@ export default function Forms(props) {
       }
     }
   }
-
-  /*
-   
-    ARRUMAR O REDIRECT AO USAR O FORMULÁRIO
-
-  */
  
   const handlerSubmit = async (e) => {
     e.preventDefault();
@@ -101,14 +96,14 @@ export default function Forms(props) {
                 <div className="mt-2 grid grid-cols-1">
                   <select
                     id="status"
-                    name="taskEnum"
+                    name="enum"
                     autoComplete="status-chose"
                     onChange={handleChange}
                     className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     required
                   >
-                    <option>CONCLUIDO</option>
                     <option>PENDENTE</option>
+                    <option>CONCLUIDO</option>
                   </select>
 
                 </div>
