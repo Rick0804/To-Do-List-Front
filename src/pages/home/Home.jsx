@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FormCreate from "../../components/formCreate/FormCreate";
-import List from "../../components/ToDoList/ToDoList";
+import List from "../../components/ToDoList/List";
 
 
 function Home(){

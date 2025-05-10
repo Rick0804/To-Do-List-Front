@@ -1,7 +1,8 @@
+import List from "../../components/ToDoList/List";
 function Notes(){
     return (
         <>
-            <h1>testeds</h1>
+            <List></List>
         </>
     )
 }

@@ -2,7 +2,7 @@ import './form.css'
 
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
-import { connect, editTodo, getTodoById, cleanDisconnect } from '../../services/taskService'
+import { connectTask, editTodo, getTodoById, cleanDisconnect } from '../../services/taskService'
 export default function FormEdit(props) {
 
   const location = useLocation();
@@ -25,7 +25,7 @@ export default function FormEdit(props) {
       setinfos(normalizedData);
     };
   
-    const fetchTarefa = async () => {
+    const fetchTask = async () => {
       try {
         console.log("Buscando tarefa específica..."); 
         getTodoById(props.id); 
@@ -35,9 +35,9 @@ export default function FormEdit(props) {
     };
   
     const setupWebSocket = () => {
-      connect(
+      connectTask(
         () => {
-          fetchTarefa();
+          fetchTask();
         },
         handleMessageReceived 
       );
