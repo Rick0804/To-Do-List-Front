@@ -20,8 +20,8 @@ const connectTask = async (setTarefa, handleMessageReceived) => {
             console.log("erro: " + error);
          }
     })
+    client.activate();
     stompClient = client;
-    stompClient.activate();
 
 }
 
@@ -77,7 +77,7 @@ const editTodo = (task, id) => {
     }
 }
 
-const cleanDisconnect = () => {
+const clearTask = () => {
     if(stompClient){
         console.log("desconectando")
     }
@@ -87,4 +87,4 @@ const cleanDisconnect = () => {
 }
 
 
-export {connectTask, addTodo, getTodo, deleteTodo, editTodo, getTodoById, cleanDisconnect}
+export {connectTask, addTodo, getTodo, deleteTodo, editTodo, getTodoById, clearTask}

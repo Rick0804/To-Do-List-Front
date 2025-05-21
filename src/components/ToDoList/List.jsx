@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
-import { connectTask, deleteTodo, cleanDisconnect } from "../../services/taskService";
-import { connectNotes } from "../../services/notesService";
+import { connectTask, deleteTodo, clearTask } from "../../services/taskService";
+import { connectNotes, getAllNotes } from "../../services/notesService";
 import FormEdit from "../formEdit/FormEdit";
 
 
@@ -15,13 +15,17 @@ function List (){
     useEffect(() => {
         if(location.pathname == '/'){
             connectTask(setInfos, () => {})
+            return () => {
+                clearTask()
+            }
         } else if (location.pathname == '/notes') {
-            //connectNotes(setInfos)
-            //console.log("entrou aqui!")
+            connectNotes(setInfos)
+           // return () => {
+                
+            //}
+            console.log("entrou aqui!")
         }
-        return () => {
-            cleanDisconnect()
-        }
+        
     }, [])
     
     
@@ -42,16 +46,17 @@ function List (){
                     
                     {
                         infos.map((response) => {
+                            console.log("teste id: ", response.id)
                             return <li key={response.id}>
                                 <div className="card">
                                     <div className="title-card">
-                                        {response.taskTitle}
+                                        {response.title}
                                     </div>
                                     <div className="description">
-                                        {response.taskDescription}
+                                        {response.description}
                                     </div>
                                     <div className="status">
-                                        {response.taskEnum}
+                                        {response.status}
                                     </div>
                                     <div className="buttons">
                                         <button onClick={() => {editTaskComp(response.id)}}>Editar</button>
@@ -66,7 +71,8 @@ function List (){
 
                 </ul>
                 <button onClick={() => {
-                    //getTodo()
+                    getAllNotes()
+                    console.log('informação: ', infos)
                     console.log(infos.length)
                 }}> teste </button>
                  
