@@ -3,7 +3,6 @@ import { Client } from "@stomp/stompjs";
 let stompClient = null;
 
 const connectTask = async (setTarefa, handleMessageReceived) => {
-    console.log("conectado")
     const client = new Client({
         brokerURL: "ws://localhost:8080/ws",
         onConnect: () => {
@@ -31,9 +30,7 @@ const addTodo = (task) => {
             destination: '/app/addTask',
             body: JSON.stringify(task)
         })
-        console.log("📨 Mensagem publicada com sucesso!");
     } else {
-        console.error("Desconectado, não pode enviar")
     }
 }
 
@@ -78,11 +75,8 @@ const editTodo = (task, id) => {
 }
 
 const clearTask = () => {
-    if(stompClient){
-        console.log("desconectando")
-    }
     stompClient.deactivate(() => {
-        console.log("Desconectado com sucesso do servidor STOMP");
+        console.log("desconectado");
     });
 }
 

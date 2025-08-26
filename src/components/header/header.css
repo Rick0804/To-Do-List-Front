@@ -1,25 +1,27 @@
 header {
-    display: flex;
-    align-items: center;
-    height: 102px;
-    position: relative;
+  background-color: #1a202c; 
+  color: #ffffff;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  border-bottom: 2px solid #4a5568; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
 }
 
-.title { 
-    color: white;
-    background-color: #282536;
-    border: 1px solid white;
-    padding: 26px 40px;
-    font-size: 20px;
+.title h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #e0e7ff; 
+  letter-spacing: 1px;
 }
 
-.name-page {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #282536;
-    color: white;
-    height: 100%;
-    font-size: 30px
+.name-page h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 400; 
+  color: #a0aec0; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px;
 }

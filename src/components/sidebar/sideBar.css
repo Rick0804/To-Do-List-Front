@@ -1,26 +1,36 @@
-nav {
-    display: flex;
-    flex-direction: column;
-    font-size: 30px;
-    background-color: #272435;
-    width: 292px;
-    gap: 30px;
-    padding-top: 50px;
-    padding-left: 23px;
-    height: calc(100vh - 102px);
+.navegation {
+  background-color: #1f2937;
+  padding: 25px 15px;
+  width: 239px; 
+  height: 100vh; 
+  border-right: 1px solid #4a5568; 
+  display: flex;
+  flex-direction: column;
 }
 
-.choosed {
-    font-weight: bold;
+.navegation nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
 }
 
-a {
-    color: white;
-    width: fit-content;
-    transition: .5s;
-
+.navegation nav a {
+  color: #a0aec0; 
+  text-decoration: none; 
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-a:hover {
-    font-weight: bold;
+.navegation nav a:hover {
+  background-color: #4a5568;
+  color: #ffffff;
+}
+
+.navegation nav a.choosed {
+  background-color: #4f46e5;
+  color: #ffffff;
+  font-weight: bold; 
 }

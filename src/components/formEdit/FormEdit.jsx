@@ -34,6 +34,8 @@ export default function FormEdit(props) {
       }
     };
   
+    clearTask();
+    
     const setupWebSocket = () => {
       connectTask(
         () => {
@@ -44,9 +46,9 @@ export default function FormEdit(props) {
     };
   
     setupWebSocket(); 
-    return () => {
-      clearTask();
-    };
+    
+   
+    
     
   }, [])
 
@@ -150,7 +152,6 @@ export default function FormEdit(props) {
             </div>
           </div>
         </div>
-        <button onClick={() => {teste()}}>tesets</button>
         <div className="mt-6 options-btn flex items-center justify-end gap-x-6">
           <button type="button" onClick={() => { props.setMostrar(!props.mostrar)}} className="text-sm/6 font-semibold text-gray-900">
             Cancel
