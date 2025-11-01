@@ -28,3 +28,5 @@ const getGoals = () => {
         })
     }
 }
+
+export {connectGoals, getGoals}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
 import { connectTask, deleteTodo, clearTask } from "../../services/taskService";
-import { connectNotes, getAllNotes } from "../../services/notesService";
+import { connectGoals, getGoals } from "../../services/goalsService";
 import FormEdit from "../formEdit/FormEdit";
 import "./list.css"
 
@@ -23,7 +23,7 @@ function List() {
                 }
             }));
             break;
-            case '/notes': setData(infos.map((response) => {
+            case '/goals': setData(infos.map((response) => {
                 return {
                     id: response.id,
                     title: response.title,
@@ -32,7 +32,7 @@ function List() {
             })); 
         }
 
-        console.log('notes', infos)
+        console.log('goals', infos)
         
     }
 
@@ -40,8 +40,8 @@ function List() {
         if (location.pathname == '/') {
             connectTask(setInfos, () => { })
             
-        } else if (location.pathname == '/notes') {
-            connectNotes(setInfos)
+        } else if (location.pathname == '/goals') {
+            connectGoals(setInfos)
             // return () => {
 
             //}
