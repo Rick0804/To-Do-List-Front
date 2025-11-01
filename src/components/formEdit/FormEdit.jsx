@@ -2,7 +2,7 @@ import './form.css'
 
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
-import { connect, editTodo, getTodoById, cleanDisconnect } from '../../services/taskService'
+import { connectTask, editTodo, getTodoById, clearTask } from '../../services/taskService'
 export default function FormEdit(props) {
 
   const location = useLocation();
@@ -25,7 +25,7 @@ export default function FormEdit(props) {
       setinfos(normalizedData);
     };
   
-    const fetchTarefa = async () => {
+    const fetchTask = async () => {
       try {
         console.log("Buscando tarefa específica..."); 
         getTodoById(props.id); 
@@ -34,19 +34,21 @@ export default function FormEdit(props) {
       }
     };
   
+    clearTask();
+    
     const setupWebSocket = () => {
-      connect(
+      connectTask(
         () => {
-          fetchTarefa();
+          fetchTask();
         },
         handleMessageReceived 
       );
     };
   
     setupWebSocket(); 
-    return () => {
-      cleanDisconnect();
-    };
+    
+   
+    
     
   }, [])
 
@@ -150,7 +152,6 @@ export default function FormEdit(props) {
             </div>
           </div>
         </div>
-        <button onClick={() => {teste()}}>tesets</button>
         <div className="mt-6 options-btn flex items-center justify-end gap-x-6">
           <button type="button" onClick={() => { props.setMostrar(!props.mostrar)}} className="text-sm/6 font-semibold text-gray-900">
             Cancel

@@ -2,8 +2,7 @@ import { Client } from "@stomp/stompjs";
 
 let stompClient = null;
 
-const connect = async (setTarefa, handleMessageReceived) => {
-    console.log("conectado")
+const connectTask = async (setTarefa, handleMessageReceived) => {
     const client = new Client({
         brokerURL: "ws://localhost:8080/ws",
         onConnect: () => {
@@ -20,8 +19,8 @@ const connect = async (setTarefa, handleMessageReceived) => {
             console.log("erro: " + error);
          }
     })
+    client.activate();
     stompClient = client;
-    stompClient.activate();
 
 }
 
@@ -31,7 +30,7 @@ const addTodo = (task) => {
             destination: '/app/addTask',
             body: JSON.stringify(task)
         })
-        console.log("📨 Mensagem publicada com sucesso!");
+    } else {
     }
 }
 
@@ -75,15 +74,11 @@ const editTodo = (task, id) => {
     }
 }
 
-const cleanDisconnect = () => {
-    if(stompClient){
-        
-        console.log("desconectando")
-    }
+const clearTask = () => {
     stompClient.deactivate(() => {
-        console.log("Desconectado com sucesso do servidor STOMP");
+        console.log("desconectado");
     });
 }
 
 
-export {connect, addTodo, getTodo, deleteTodo, editTodo, getTodoById, cleanDisconnect}
+export {connectTask, addTodo, getTodo, deleteTodo, editTodo, getTodoById, clearTask}

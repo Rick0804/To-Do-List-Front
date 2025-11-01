@@ -1,5 +1,5 @@
 import "./goals.css" 
-import List from "../../components/ToDoList/ToDoList"
+import List from "../../components/ToDoList/List"
 function Goals (){
     return (
         <>
