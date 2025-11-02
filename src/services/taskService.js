@@ -1,9 +1,9 @@
 import { Client } from "@stomp/stompjs";
 
-let stompClient = null;
+let stompClientTask = null;
 
 const connectTask = async (setTarefa, handleMessageReceived) => {
-    
+  
     const client = new Client({
         brokerURL: "ws://localhost:8080/ws",
         onConnect: () => {
@@ -22,13 +22,12 @@ const connectTask = async (setTarefa, handleMessageReceived) => {
          }
     })
     client.activate();
-    stompClient = client;
-
+    stompClientTask = client;
 }
 
 const addTodo = (task) => {
-    if(stompClient && stompClient.connected){
-        stompClient.publish({
+    if(stompClientTask && stompClientTask.connected){
+        stompClientTask.publish({
             destination: '/app/addTask',
             body: JSON.stringify(task)
         })
@@ -37,8 +36,8 @@ const addTodo = (task) => {
 }
 
 const getTodo = () => {
-    if(stompClient && stompClient.connected){
-        stompClient.publish({
+    if(stompClientTask && stompClientTask.connected){
+        stompClientTask.publish({
             destination: '/app/getTasks',
             body: ''
         })
@@ -46,8 +45,8 @@ const getTodo = () => {
 }
 
 const getTodoById = async (id) => {
-    if(stompClient && stompClient.connected){
-        stompClient.publish({
+    if(stompClientTask && stompClientTask.connected){
+        stompClientTask.publish({
             destination: '/app/getTaskId',
             headers: {id},
             body: ''
@@ -56,8 +55,8 @@ const getTodoById = async (id) => {
 }
 
 const deleteTodo = (id) => {
-    if(stompClient && stompClient.connected){
-        stompClient.publish({
+    if(stompClientTask && stompClientTask.connected){
+        stompClientTask.publish({
             destination: "/app/deleteTask",
             headers: {id},
             body: ''
@@ -67,8 +66,8 @@ const deleteTodo = (id) => {
 }
 
 const editTodo = (task, id) => {
-    if(stompClient && stompClient.connected){
-        stompClient.publish({
+    if(stompClientTask && stompClientTask.connected){
+        stompClientTask.publish({
             destination: "/app/editTask",
             headers: {id},
             body: JSON.stringify(task)
@@ -77,7 +76,7 @@ const editTodo = (task, id) => {
 }
 
 const clearTaskTodo = () => {
-    stompClient.deactivate(() => {
+    stompClientTask.deactivate(() => {
         console.log("desconectado");
     });
 }

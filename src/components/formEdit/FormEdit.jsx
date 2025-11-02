@@ -122,7 +122,7 @@ export default function FormEdit(props) {
       typeHand().then((response) => {editTodo(response, props.id) })
       props.setMostrar(!props.mostrar);
     } else {
-      typeHand().then((response) => {editGoals(response, props.id) })
+      typeHand().then((response) => {editGoals(props.id, response) })
       props.setMostrar(!props.mostrar);
     }
   }
