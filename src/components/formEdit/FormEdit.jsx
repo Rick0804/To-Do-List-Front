@@ -2,7 +2,8 @@ import './form.css'
 
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
-import { connectTask, editTodo, getTodoById, clearTask } from '../../services/taskService'
+import { connectTask, editTodo, getTodoById, clearTaskTodo } from '../../services/taskService'
+import { connectGoals, editGoals, getGoal, clearTaskGoal } from '../../services/goalsService';
 export default function FormEdit(props) {
 
   const location = useLocation();
@@ -14,46 +15,81 @@ export default function FormEdit(props) {
 
   useEffect(() => {
 
-    const handleMessageReceived = (data) => {
-      const normalizedData = {
-        title: data.taskTitle,
-        description:  data.taskDescription,
-        enum: data.taskEnum 
-      };
+    const handleMessageReceived = async (data) => {
+      const path = location.pathname
+      const normalizedData = await normalizedTransformer(path, data);
+      
       
       console.log("Dados normalizados:", normalizedData);
-      setinfos(normalizedData);
+      setinfos(normalizedData)
+      console.log("dados")
+
     };
   
-    const fetchTask = async () => {
+    const normalizedTransformer = async (path, data) => {
+      console.log("ele vem aqui?")
+      if(path == '/'){
+        return {
+          title: data.taskTitle,
+          description:  data.taskDescription,
+          enum: data.taskEnum
+        }
+      } else {
+        return {
+          title: data.goalTitle,
+          description:  data.goalDescription,
+        }
+      }
+    }
+
+    const fetchTask = async (path) => {
       try {
-        console.log("Buscando tarefa específica..."); 
-        getTodoById(props.id); 
+        if(path == '/'){
+          console.log("Buscando tarefa específica..."); 
+          getTodoById(props.id); 
+          //clearTaskTodo();
+
+        } else {
+          console.log("Buscando meta específica..."); 
+          getGoal(props.id);
+          //clearTaskGoal()
+        }
       } catch (error) {
         console.error("Erro ao buscar tarefa:", error);
       }
+      console.log('caminho ', path)
     };
   
-    clearTask();
     
     const setupWebSocket = () => {
-      connectTask(
-        () => {
-          fetchTask();
-        },
-        handleMessageReceived 
-      );
+      const path = location.pathname;
+      console.log("Teste setupWebSocket ", path)
+      if(path == '/'){
+        connectTask(
+          () => {
+            fetchTask(path);
+          },
+          handleMessageReceived 
+          
+        );
+      } else {
+        console.log("Teste dentro do if do websocket ", path)
+        connectGoals(
+          () => {
+            fetchTask(path);
+          },
+          handleMessageReceived
+        );
+      }
     };
   
     setupWebSocket(); 
-    
-   
-    
-    
+
   }, [])
 
   
   const handleChange = (event) => {
+    console.log("teste maniaco do handleChange", )
     const { name, value } = event.target;
 
     setinfos((prevInfos) => ({
@@ -64,29 +100,31 @@ export default function FormEdit(props) {
   }
 
   const typeHand = async () => {
+    console.log("teste type hand")
     switch (location.pathname) {
       case '/': return {
         taskTitle: infos.title,
         taskDescription: infos.description,
         taskEnum: infos.enum
       }
-      case '/metas': return {
+      case '/goals': console.log("infos: ", infos); return {
         goalTitle: infos.title,
+        goalEnum: "CONCLUIDO",
         goalDescription: infos.description,
-        goalEnum: infos.enum
       }
-      case '/notes': return {
-        goalTitle: infos.title,
-        goalDescription: infos.description,
-        goalEnum: infos.enum
-      }
+
     }
   }
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
-    typeHand().then((response) => { editTodo(response, props.id) })
-    props.setMostrar(!props.mostrar);
+    if(location.pathname == '/'){
+      typeHand().then((response) => {editTodo(response, props.id) })
+      props.setMostrar(!props.mostrar);
+    } else {
+      typeHand().then((response) => {editGoals(response, props.id) })
+      props.setMostrar(!props.mostrar);
+    }
   }
 
 
@@ -134,7 +172,8 @@ export default function FormEdit(props) {
                 <label htmlFor="status" className="block text-sm/6 font-medium text-gray-900">
                   Status
                 </label>
-                <div className="mt-2 grid grid-cols-1">
+                {
+                  location.pathname == '/' && (<div className="mt-2 grid grid-cols-1">
                   <select
                     id="status"
                     name="enum"
@@ -147,7 +186,8 @@ export default function FormEdit(props) {
                     <option>CONCLUIDO</option>
                     <option>PENDENTE</option>
                   </select>
-                </div>
+                </div>)
+                }
               </div>
             </div>
           </div>

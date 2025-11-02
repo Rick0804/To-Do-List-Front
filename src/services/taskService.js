@@ -3,6 +3,7 @@ import { Client } from "@stomp/stompjs";
 let stompClient = null;
 
 const connectTask = async (setTarefa, handleMessageReceived) => {
+    
     const client = new Client({
         brokerURL: "ws://localhost:8080/ws",
         onConnect: () => {
@@ -10,6 +11,7 @@ const connectTask = async (setTarefa, handleMessageReceived) => {
                 if(Array.isArray(JSON.parse(message.body))){
                     setTarefa(JSON.parse(message.body).sort((a, b) => a.id - b.id));
                 } else {
+                    console.log(handleMessageReceived)
                     handleMessageReceived(JSON.parse(message.body))
                 }
             })
@@ -74,11 +76,11 @@ const editTodo = (task, id) => {
     }
 }
 
-const clearTask = () => {
+const clearTaskTodo = () => {
     stompClient.deactivate(() => {
         console.log("desconectado");
     });
 }
 
 
-export {connectTask, addTodo, getTodo, deleteTodo, editTodo, getTodoById, clearTask}
+export {connectTask, addTodo, getTodo, deleteTodo, editTodo, getTodoById, clearTaskTodo}
