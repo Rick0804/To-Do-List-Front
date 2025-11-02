@@ -12,7 +12,7 @@ function SideBar(){
             <div className="navegation">
                 <nav>
                     <Link className={stayPage("/") ? "choosed" : ""} to="/">Home</Link>
-                    <Link className={stayPage("/metas") ? "choosed" : ""} to="/metas">Metas</Link>
+                    <Link className={stayPage("/goals") ? "choosed" : ""} to="/goals">Metas</Link>
                 </nav>
             </div>
         </>

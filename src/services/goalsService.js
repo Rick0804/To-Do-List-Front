@@ -1,8 +1,6 @@
-import { Client } from "stompjs";
+import { Client } from "@stomp/stompjs";
 
-
-
-let stompClient;
+let stompClient = null;
 
 const connectGoals = (setTarefa) => {
     let client = new Client({
