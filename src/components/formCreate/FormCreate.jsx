@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { useLocation } from "react-router-dom";
 import { addTodo } from '../../services/taskService'
+import { addGoal } from "../../services/goalsService";
 import './form.css'
 
 export default function FormCreate(props) {
@@ -32,22 +33,24 @@ export default function FormCreate(props) {
         taskDescription: infos.description,
         taskEnum: infos.enum
       }
-      case '/metas': return {
+      case '/goals': return {
         goalTitle: infos.title,
         goalDescription: infos.description,
-        goalEnum: infos.enum
+        goalEnum: "CONCLUIDO"
       }
-      case '/notes': return {
-        goalTitle: infos.title,
-        goalDescription: infos.description,
-        goalEnum: infos.enum
-      }
+      
     }
   }
  
   const handlerSubmit = async (e) => {
+    const path = location.pathname;
     e.preventDefault();
-    typeHand().then((response) => {addTodo(response)})
+    if(path == '/'){
+      typeHand().then((response) => {addTodo(response)})
+    } else {
+      typeHand().then((response) => {addGoal(response)})
+
+    }
     props.setMostrar(!props.mostrar);
   }
 
@@ -59,19 +62,20 @@ export default function FormCreate(props) {
             {/* Campo Título */}
             <div className="form-group">
                 <label htmlFor="title">
-                    Título da tarefa
+                    Título
                 </label>
                 <input
                     id="title"
                     name="title"
                     type="text"
                     onChange={handleChange}
-                    className="form-input"
+                    className="form-input title-input"
                     required
                 />
             </div>
 
             {/* Campo Status */}
+            {location.pathname == "/" &&(
             <div className="form-group">
                 <label htmlFor="status">
                     Status
@@ -89,7 +93,7 @@ export default function FormCreate(props) {
                     </select>
                 </div>
             </div>
-
+            )}
             {/* Campo Descrição */}
             <div className="form-group full-width">
                 <label htmlFor="description">
@@ -100,7 +104,7 @@ export default function FormCreate(props) {
                     name="description"
                     rows="5"
                     onChange={handleChange}
-                    className="form-input"
+                    className="form-input description-input"
                     required
                 />
             </div>

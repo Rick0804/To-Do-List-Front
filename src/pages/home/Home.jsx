@@ -15,7 +15,7 @@ function Home(){
                     <div className="title-list">
                         <h2>To Do List</h2>
                     </div>
-                    <button onClick={() => setMostrar(!mostrar)}>adicionar tarefa</button>
+                    <button onClick={() => setMostrar(!mostrar)}>adicionar Tarefa</button>
                     {mostrar && <FormCreate mostrar={mostrar} setMostrar={setMostrar}></FormCreate>}
                 <div className="listTask">
                     <List></List>

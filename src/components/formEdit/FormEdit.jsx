@@ -1,4 +1,4 @@
-import './form.css'
+import './formEdit.css'
 
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
@@ -169,11 +169,13 @@ export default function FormEdit(props) {
                 </div>
               </div>
               <div className="sm:col-span-3">
-                <label htmlFor="status" className="block text-sm/6 font-medium text-gray-900">
-                  Status
-                </label>
+                
                 {
-                  location.pathname == '/' && (<div className="mt-2 grid grid-cols-1">
+                  location.pathname == '/' && (  
+                  <div className="mt-2 status-grid grid-cols-1">
+                  <label htmlFor="status" className="block text-sm/6 font-medium text-gray-900">
+                    Status
+                  </label>
                   <select
                     id="status"
                     name="enum"

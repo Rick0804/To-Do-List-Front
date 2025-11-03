@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
 import { connectTask, deleteTodo } from "../../services/taskService";
-import { connectGoals } from "../../services/goalsService";
+import { connectGoals, deleteGoal } from "../../services/goalsService";
 
 import FormEdit from "../formEdit/FormEdit";
 import "./list.css"
@@ -53,9 +53,9 @@ function List() {
     const erase = (id) => { 
         let path = location.pathname;
         if(path == '/'){
-            apagarTarefa(id)
+            deleteTodo(id);
         } else {
-            
+            deleteGoal(id)
         }
     }
 
@@ -64,9 +64,7 @@ function List() {
         setTarefaEdit(id)
     }
 
-    const apagarTarefa = (id) => {
-        deleteTodo(id);
-    }
+    
 
     return (
         <>
@@ -88,7 +86,7 @@ function List() {
                                         {response.status}
                                     </div>)}
                                     <div className="buttons">
-                                        <button onClick={() => {edit(response.id)}}>Editar</button>
+                                        <button onClick={() => edit(response.id)}>Editar</button>
                                         <button onClick={() => erase(response.id)}>Apagar</button>
                                     </div>
                                 </div>
